@@ -1,3 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.slick-slide > div {
+  margin: 0 20px;
+}
+
+@layer components {
+  .btn-primary {
+    @apply text-center cursor-pointer py-2 px-4 border font-semibold rounded-lg shadow-md active:bg-gray-500/20 active:outline-none active:ring-opacity-75;
+  }
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: inherit;
+}

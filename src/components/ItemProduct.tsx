@@ -1,6 +1,6 @@
 import { ProductType } from "../store/getProductsSlice.ts";
 import { FC, useEffect, useRef, useState } from "react";
-import { Badge, Button, Card, Group, Image, Text } from "@mantine/core";
+import { Badge, Card, Group, Image, Text } from "@mantine/core";
 
 const ItemProduct: FC<{ product: ProductType }> = ({ product }) => {
   const badgeRef = useRef<HTMLDivElement | null>(null);
@@ -33,9 +33,9 @@ const ItemProduct: FC<{ product: ProductType }> = ({ product }) => {
         {product.description}
       </Text>
 
-      <Button variant="light" color="blue" fullWidth className="mt-3.5">
+      <button className="w-full btn-primary mt-3.5">
         Book classic tour now
-      </Button>
+      </button>
     </Card>
   );
 };

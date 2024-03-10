@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { getProduct } from "../api/request.aip.ts";
 
 export type ProductType = {
@@ -13,11 +13,15 @@ export type ProductType = {
 type ProductsType = {
   items: Array<ProductType>;
   status: string;
+  mode: string;
+  FilteredCategory: string;
 };
 
 const initialState: ProductsType = {
   items: [],
   status: "",
+  mode: localStorage.getItem("theme") || "light",
+  FilteredCategory: "all",
 };
 
 export const getProducts = createAsyncThunk(
@@ -35,7 +39,15 @@ export const getProducts = createAsyncThunk(
 const getProductsSlice = createSlice({
   name: "getProducts",
   initialState,
-  reducers: {},
+  reducers: {
+    themeChange: (state) => {
+      state.mode = state.mode === "light" ? "dark" : "light";
+      localStorage.setItem("theme", state.mode);
+    },
+    filterChange: (state, action: PayloadAction<string>) => {
+      state.FilteredCategory = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getProducts.pending, (state) => {
@@ -52,3 +64,4 @@ const getProductsSlice = createSlice({
 });
 
 export default getProductsSlice.reducer;
+export const { themeChange, filterChange } = getProductsSlice.actions;
