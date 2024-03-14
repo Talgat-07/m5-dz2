@@ -24,7 +24,7 @@ const CartProductItem: FC<AppProps> = ({ product }) => {
           <IconMinus />
         </ActionIcon>
       </Group>
-      <Text>{product.price}$</Text>
+      <Text>{product.price * product.counter}$</Text>
       <ActionIcon>
         <IconShoppingCartX />
       </ActionIcon>
