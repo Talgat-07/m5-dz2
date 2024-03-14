@@ -10,10 +10,11 @@ const Header = () => {
   return (
     <Group spacing={50} position="center" p={20}>
       <MyLink to="/">Главная</MyLink>
+      <MyLink to="filter">Фильтрация</MyLink>
+      <MyLink to="cart">cart</MyLink>
       <ActionIcon onClick={() => dispatch(themeChange())}>
         {theme === "light" ? <IconMoon /> : <IconSun />}
       </ActionIcon>
-      <MyLink to="filter">Фильтрация</MyLink>
     </Group>
   );
 };

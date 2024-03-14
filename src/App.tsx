@@ -4,6 +4,7 @@ import Header from "./components/Header.tsx";
 import { Route, Routes } from "react-router-dom";
 import Filter from "./pages/Filter.tsx";
 import { useAppSelector } from "./hooks/reduxHooks.ts";
+import CartPage from "./pages/CartPage.tsx";
 
 function App() {
   const theme = useAppSelector((state) => state.getProducts.mode);
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="filter" element={<Filter />} />
+          <Route path="/cart" element={<CartPage />} />
         </Routes>
       </Container>
     </MantineProvider>

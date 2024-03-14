@@ -1,8 +1,11 @@
-import { ProductType } from "../store/getProductsSlice.ts";
+import { addToCart, ProductType } from "../store/getProductsSlice.ts";
 import { FC, useEffect, useRef, useState } from "react";
-import { Badge, Card, Group, Image, Text } from "@mantine/core";
+import { ActionIcon, Badge, Card, Group, Image, Text } from "@mantine/core";
+import { useAppDispatch } from "../hooks/reduxHooks.ts";
+import { IconShoppingCartPlus } from "@tabler/icons-react";
 
 const ItemProduct: FC<{ product: ProductType }> = ({ product }) => {
+  const dispatch = useAppDispatch();
   const badgeRef = useRef<HTMLDivElement | null>(null);
   const [isWidth, setWidth] = useState("");
 
@@ -33,9 +36,16 @@ const ItemProduct: FC<{ product: ProductType }> = ({ product }) => {
         {product.description}
       </Text>
 
-      <button className="w-full btn-primary mt-3.5">
-        Book classic tour now
-      </button>
+      <Group className="mt-3.5" position="apart">
+        <Text>Price: {product.price}</Text>
+        <ActionIcon
+          onClick={() => dispatch(addToCart(product))}
+          size={40}
+          radius="xl"
+        >
+          <IconShoppingCartPlus size={20} />
+        </ActionIcon>
+      </Group>
     </Card>
   );
 };
