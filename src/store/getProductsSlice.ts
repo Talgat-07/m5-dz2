@@ -25,7 +25,7 @@ const initialState: ProductsType = {
   items: [],
   status: "",
   mode: localStorage.getItem("theme") || "light",
-  FilteredCategory: "all",
+  FilteredCategory: localStorage.getItem("category") || "all",
   cart: localCart ? JSON.parse(localCart) : [],
 };
 
@@ -51,6 +51,7 @@ const getProductsSlice = createSlice({
     },
     filterChange: (state, action: PayloadAction<string>) => {
       state.FilteredCategory = action.payload;
+      localStorage.setItem("category", state.FilteredCategory);
     },
     addToCart: (state, action: PayloadAction<ProductType>) => {
       const totalFind = state.cart.find((el) => el.id === action.payload.id);
