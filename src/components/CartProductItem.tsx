@@ -21,12 +21,12 @@ const CartProductItem: FC<AppProps> = ({ product }) => {
       <Image height={80} src={product.images[0]} />
       <Text>{product.title}</Text>
       <Group>
-        <ActionIcon onClick={() => dispatch(addToCart(product))}>
-          <IconPlus />
-        </ActionIcon>
-        <Text>{product.counter}</Text>
         <ActionIcon onClick={() => dispatch(minusCounterCart(product))}>
           <IconMinus />
+        </ActionIcon>
+        <Text>{product.counter}</Text>
+        <ActionIcon onClick={() => dispatch(addToCart(product))}>
+          <IconPlus />
         </ActionIcon>
       </Group>
       <Text>{product.price * product.counter}$</Text>
