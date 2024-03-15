@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../hooks/reduxHooks.ts";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks.ts";
 import { useEffect } from "react";
 import { clearAllToCart, getProducts } from "../store/getProductsSlice.ts";
 import CartProductList from "../components/CartProductList.tsx";
@@ -10,6 +10,8 @@ const Cart = () => {
     dispatch(getProducts());
   }, [dispatch]);
 
+  const product = useAppSelector((state) => state.getProducts.cart);
+
   return (
     <>
       <Center>
@@ -17,7 +19,7 @@ const Cart = () => {
           className="cursor-pointer text-4xl my-5"
           onClick={() => dispatch(clearAllToCart())}
         >
-          Clear all
+          {product.length > 0 ? "Clear all" : "Cart is empty"}
         </span>
       </Center>
       <CartProductList />
