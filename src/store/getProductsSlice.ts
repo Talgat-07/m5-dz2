@@ -54,7 +54,6 @@ const getProductsSlice = createSlice({
     },
     addToCart: (state, action: PayloadAction<ProductType>) => {
       const totalFind = state.cart.find((el) => el.id === action.payload.id);
-      console.log(!!totalFind);
       if (totalFind) {
         state.cart = state.cart.map((el) => {
           if (totalFind.id !== el.id) return el;
@@ -68,12 +67,26 @@ const getProductsSlice = createSlice({
       }
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
-    removeToCart: (state, action: PayloadAction<ProductType>) => {
+    clearAllToCart: (state) => {
+      state.cart = [];
+      localStorage.setItem("cart", JSON.stringify(state.cart));
+    },
+    clearProductCart: (state, action: PayloadAction<ProductType>) => {
       state.cart = state.cart.filter((el) => el.id !== action.payload.id);
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
-    clearAllToCart: (state) => {
-      state.cart = [];
+    minusCounterCart: (state, action: PayloadAction<ProductType>) => {
+      if (action.payload.counter > 1) {
+        state.cart = state.cart.map((el) => {
+          if (el.id !== action.payload.id) return el;
+          return {
+            ...el,
+            counter: el.counter - 1,
+          };
+        });
+      } else {
+        state.cart = state.cart.filter((el) => el.id !== action.payload.id);
+      }
       localStorage.setItem("cart", JSON.stringify(state.cart));
     },
   },
@@ -99,7 +112,8 @@ export default getProductsSlice.reducer;
 export const {
   themeChange,
   filterChange,
-  removeToCart,
   addToCart,
   clearAllToCart,
+  minusCounterCart,
+  clearProductCart,
 } = getProductsSlice.actions;

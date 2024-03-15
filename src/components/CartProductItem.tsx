@@ -1,6 +1,11 @@
 import { FC } from "react";
 import { ActionIcon, Card, Group, Image, Text } from "@mantine/core";
-import { addToCart, ProductType } from "../store/getProductsSlice.ts";
+import {
+  addToCart,
+  clearProductCart,
+  minusCounterCart,
+  ProductType,
+} from "../store/getProductsSlice.ts";
 import { IconMinus, IconPlus, IconShoppingCartX } from "@tabler/icons-react";
 import { useAppDispatch } from "../hooks/reduxHooks.ts";
 
@@ -20,12 +25,12 @@ const CartProductItem: FC<AppProps> = ({ product }) => {
           <IconPlus />
         </ActionIcon>
         <Text>{product.counter}</Text>
-        <ActionIcon>
+        <ActionIcon onClick={() => dispatch(minusCounterCart(product))}>
           <IconMinus />
         </ActionIcon>
       </Group>
       <Text>{product.price * product.counter}$</Text>
-      <ActionIcon>
+      <ActionIcon onClick={() => dispatch(clearProductCart(product))}>
         <IconShoppingCartX />
       </ActionIcon>
     </Card>
